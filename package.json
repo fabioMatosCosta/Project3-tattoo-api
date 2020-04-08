@@ -7,6 +7,7 @@
     "dev": "DEBUG=awesome-project:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www"
   },
+  "proxy":"http://localhost:5000",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
