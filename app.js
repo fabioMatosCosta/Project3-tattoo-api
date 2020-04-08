@@ -8,6 +8,8 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const session    = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 const username = process.env.MONGOUSERNAME
 const password = process.env.MONGOPASSWORD
@@ -40,6 +42,14 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
       
+app.use(session({
+  secret: "basic-auth-secret",
+  cookie: { maxAge: 1200000 },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 
+  })
+}));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -49,12 +59,16 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Tattoo API';
 
 
 
 const index = require('./routes/index');
+const signup = require('./routes/signup');
+
+
 app.use('/', index);
+app.use('/', signup);
 
 
 module.exports = app;
