@@ -13,7 +13,7 @@ const bcryptSalt = 10;
     .then((user)=>{
       if(!user) {
         res.json({
-        message: "The email doesn't exist!"
+          message: "The email doesn't exist!"
         })
       }else {
         bcrypt.compare(passWord,user.passWord, function(err,correctPassWord){
