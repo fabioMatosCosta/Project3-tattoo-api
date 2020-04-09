@@ -3,7 +3,7 @@ const router  = express.Router();
 const session    = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
-router.get('/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
     req.session.destroy()
     res.json({message:"Have fun,see you later,stay true"})
 });
