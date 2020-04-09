@@ -9,7 +9,9 @@ router.post("/signup", (req, res, next) => {
     Users.findOne({ "email": email })
     .then((user) => {
         if (user !== null) {
-        next("The email already exists!");
+            res.json({
+                message: "The email already exists!"
+            })
         }else {
         bcrypt.hash(passWord, bcryptSalt, function (err, hash) {
             if (err) next("Hashing error", err)
@@ -21,8 +23,7 @@ router.post("/signup", (req, res, next) => {
             })
         .then((user)=>{
             res.json({
-                email: user.email,
-                firstName: user.firstName
+                message: `Hey, ${user.firstName}, you can login now.`
             })
         })
         .catch((err)=>{
