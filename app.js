@@ -28,6 +28,7 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 // Middleware Setup
+
 app.use(cors())
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -56,6 +57,10 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+function protect(req,res,next){
+  if(req.session.currentUser) next();
+  else res.status(403).json({message: "Not logged in buddy"});
+}
 
 
 // default value for title local
