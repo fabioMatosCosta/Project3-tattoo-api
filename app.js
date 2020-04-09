@@ -65,10 +65,12 @@ app.locals.title = 'Tattoo API';
 
 const index = require('./routes/index');
 const signup = require('./routes/signup');
+const login = require('./routes/login')
 
 
 app.use('/', index);
 app.use('/', signup);
+app.use('/', login);
 
 
 module.exports = app;

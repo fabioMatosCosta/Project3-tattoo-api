@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const User = require("../models/User")
+const User = require("../models/Users")
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
@@ -11,14 +11,23 @@ const bcryptSalt = 10;
       email
     })
     .then((user)=>{
-      if(!user) next("Invalid Credentials")
-      else {
-        bcrypt.compare(passWord,user.passWord, function(err,correctPassword){
+      if(!user) {
+        res.json({
+        message: "The email doesn't exist!"
+        })
+      }else {
+        bcrypt.compare(passWord,user.passWord, function(err,correctPassWord){
           if(err) next("hash compare error");
-          else if(!correctPassWord) res.send("invalid credentials")
-          else {
+          else if(!correctPassWord) {
+            res.json({
+              message: "invalid credentials!"
+              })
+          }else {
             req.session.currentUser = user;
-            res.redirect("profile")
+            res.json({
+                firstName: user.firstName,
+                email: user.email
+              })
           }
         })
       }
