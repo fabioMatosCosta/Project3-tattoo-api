@@ -15,7 +15,7 @@ const username = process.env.MONGOUSERNAME
 const password = process.env.MONGOPASSWORD
 
 mongoose
-  .connect(`mongodb+srv://${username}:${password}@tattoounderground-lqqlh.azure.mongodb.net/test`, {useNewUrlParser: true})
+  .connect(`mongodb+srv://${username}:${password}@tattoounderground-lqqlh.azure.mongodb.net/test`, {useNewUrlParser: true,useUnifiedTopology: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })

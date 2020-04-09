@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
 router.post("/signup", (req, res, next) => {
-    const { email, passWord , email ,firstName } = req.body;
+    const { email, passWord ,firstName } = req.body;
     Users.findOne({ "email": email })
     .then((user) => {
         if (user !== null) {
@@ -17,12 +17,10 @@ router.post("/signup", (req, res, next) => {
             Users.create({
                 email: email,
                 passWord: hash,
-                email: email,
                 firstName: firstName,
             })
         .then((user)=>{
             res.json({
-                email: user.email,
                 email: user.email,
                 firstName: user.firstName
             })
