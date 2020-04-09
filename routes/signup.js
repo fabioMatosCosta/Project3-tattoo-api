@@ -5,24 +5,24 @@ const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
 router.post("/signup", (req, res, next) => {
-    const { userName, passWord , email ,firstName } = req.body;
-    Users.findOne({ "userName": userName })
+    const { email, passWord , email ,firstName } = req.body;
+    Users.findOne({ "email": email })
     .then((user) => {
         if (user !== null) {
-        next("The username already exists!");
+        next("The email already exists!");
         }else {
         bcrypt.hash(passWord, bcryptSalt, function (err, hash) {
             if (err) next("Hashing error", err)
             else {
             Users.create({
-                userName: userName,
+                email: email,
                 passWord: hash,
                 email: email,
                 firstName: firstName,
             })
         .then((user)=>{
             res.json({
-                userName: user.userName,
+                email: user.email,
                 email: user.email,
                 firstName: user.firstName
             })

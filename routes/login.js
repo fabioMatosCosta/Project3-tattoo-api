@@ -6,9 +6,9 @@ const bcryptSalt = 10;
 
 
   router.post("/login",(req, res, next) => {
-    const {userName, passWord} = req.body;
+    const {email, passWord} = req.body;
     User.findOne({
-      userName
+      email
     })
     .then((user)=>{
       if(!user) next("Invalid Credentials")
