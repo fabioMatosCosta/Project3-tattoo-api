@@ -14,17 +14,17 @@ const MongoStore = require("connect-mongo")(session);
     })
     .then((user)=>{
       if(!user) { 
-        res.json({message: "The email doesn't exist!"})
+        res.status(403).json({message: "invalid credentials!"})
       }else {
         bcrypt.compare(passWord,user.passWord, function(err,correctPassWord){
           if(err) next("hash compare error");
           else if(!correctPassWord) {
-            res.json({
+            res.status(403).json({
               message: "invalid credentials!"
               })
           }else {
             req.session.currentUser = user;
-            res.json({
+            res.status(200).json({
                 firstName: user.firstName,
                 email: user.email
               })
