@@ -1,8 +1,10 @@
 const express = require('express');
 const router  = express.Router();
-const User = require("../models/Users")
+const User = require("../models/Users");
 const bcrypt = require("bcrypt");
-const bcryptSalt = 10;
+
+const session    = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 
   router.post("/login",(req, res, next) => {
@@ -11,10 +13,8 @@ const bcryptSalt = 10;
       email
     })
     .then((user)=>{
-      if(!user) {
-        res.json({
-          message: "The email doesn't exist!"
-        })
+      if(!user) { 
+        res.json({message: "The email doesn't exist!"})
       }else {
         bcrypt.compare(passWord,user.passWord, function(err,correctPassWord){
           if(err) next("hash compare error");

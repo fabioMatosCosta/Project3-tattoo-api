@@ -57,7 +57,7 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-function protect(req,res,next){
+function protecc(req,res,next){
   if(req.session.currentUser) next();
   else res.status(403).json({message: "Not logged in buddy"});
 }
@@ -70,14 +70,16 @@ app.locals.title = 'Tattoo API';
 
 const index = require('./routes/index');
 const signup = require('./routes/signup');
-const login = require('./routes/login')
-const logout = require('./routes/logout')
+const login = require('./routes/login');
+const logout = require('./routes/logout');
+const profile = require('./routes/user/profile');
 
 
 app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
 app.use('/', logout);
+app.use('/user', protecc, profile)
 
 
 module.exports = app;
