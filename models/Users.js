@@ -6,7 +6,11 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   passWord: String,
   email: String,
-  firstName: String
+  firstName: String,
+  image:[{
+    type: mongoose.Types.ObjectId,
+    ref: "pictures" 
+  }]
 });
 
 

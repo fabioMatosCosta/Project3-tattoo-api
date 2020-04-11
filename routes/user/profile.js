@@ -1,37 +1,41 @@
 const express = require('express');
 const router = express.Router();
+const Picture = require('../../models/Picture');
 const User = require("../../models/Users");
 const session = require("express-session");
 const multer = require('multer');
-const Picture = require('../../models/Picture');
 const upload = multer({ dest: './public/uploads/' });
-const uploadCloud = require('../../config/cloudinary.js');
+const uploadCloud = require('../../config/cloudinary');
 
 router.get('/profile', (req, res, next) => {
     User
         .findById(req.session.currentUser._id)
+        .populate("image")
         .then((user) => {
             res.json({
                 firstName: user.firstName,
-                email: user.email
+                email: user.email,
+                image: user.image
             })
         })
-
-    // Picture.find((err, pictures) => {
-    //     res.json('index', { pictures })
-    // })
 });
 
 
 
-router.post('/profile', uploadCloud.single('photo'), (req, res, next) => {
+router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
     const { title, description } = req.body;
     const imgPath = req.file.url;
     const imgName = req.file.originalname;
     const newphoto = new Picture({ title, description, imgPath, imgName })
-    newphoto.save()
+        newphoto.save()
         .then(photo => {
-            res.redirect('/');
+            User.findByIdAndUpdate(req.session.currentUser._id, {
+                $push: { image: photo._id }
+            }, {'new': true, 'useFindAndModify': false})
+            .populate("image")
+        })
+        .then(()=>{
+            res.send('pic added');
         })
         .catch(error => {
             console.log(error);

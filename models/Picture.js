@@ -10,6 +10,6 @@ const profilePicture = new Schema({
   timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" }
 });
 
-var Picture = mongoose.model("Picture", profilePicture);
+var Picture = mongoose.model("pictures", profilePicture);
 
 module.exports = Picture;
