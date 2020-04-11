@@ -62,7 +62,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 function protecc(req,res,next){
   if(req.session.currentUser) next();
-  else res.status(403).json({message: "Not logged in buddy"});
+  else res.status(403).json({message: "Not logged in friend"});
 }
 
 
@@ -75,13 +75,14 @@ const signup = require('./routes/signup');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const profile = require('./routes/user/profile');
-
+const artists = require('./routes/artist/artist');
 
 app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
 app.use('/', protecc, logout);
 app.use('/user', protecc, profile);
+app.use('/artist', artists);
 
 
 module.exports = app;

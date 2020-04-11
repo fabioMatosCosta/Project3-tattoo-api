@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../../models/Users");
 const session = require("express-session");
 const multer = require('multer');
-const Picture = require('../../models/picture');
+const Picture = require('../../models/Picture');
 const upload = multer({ dest: './public/uploads/' });
 const uploadCloud = require('../../config/cloudinary.js');
 
@@ -16,10 +16,10 @@ router.get('/profile', (req, res, next) => {
                 email: user.email
             })
         })
-    Picture.find((err, pictures) => {
-        res.json('index', { pictures })
-    })
 
+    // Picture.find((err, pictures) => {
+    //     res.json('index', { pictures })
+    // })
 });
 
 
@@ -37,4 +37,5 @@ router.post('/profile', uploadCloud.single('photo'), (req, res, next) => {
             console.log(error);
         })
 });
+
 module.exports = router;

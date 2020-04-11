@@ -6,6 +6,7 @@ const uploadCloud = require('../config/cloudinary.js');
 router.get('/', (req, res, next) => {
   res.json({name: "Fábio"});
 });
+
 router.post('/movie/add', uploadCloud.single('photo'), (req, res, next) => {
   const { title, description } = req.body;
   const imgPath = req.file.url;

@@ -3,7 +3,7 @@ const Schema   = mongoose.Schema;
 
 const profilePicture = new Schema({
   title: String,
-  // description: String,
+  description: String,
   imgName: String,
   imgPath: String,
 }, {
@@ -11,4 +11,5 @@ const profilePicture = new Schema({
 });
 
 var Picture = mongoose.model("Picture", profilePicture);
-module.exports = Picture
+
+module.exports = Picture;
