@@ -31,7 +31,7 @@ router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
         .then((photo) => {
             User
             .findByIdAndUpdate(req.session.currentUser._id, {
-                $push: { image: photo._id }
+                image: photo._id 
             },{new: true, useFindAndModify: false})
             .populate("image")
             .then(()=>{
