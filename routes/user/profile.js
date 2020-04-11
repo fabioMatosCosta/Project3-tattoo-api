@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Picture = require('../../models/Picture');
 const User = require("../../models/Users");
+const Picture = require('../../models/Picture');
 const session = require("express-session");
 const multer = require('multer');
 const upload = multer({ dest: './public/uploads/' });
@@ -28,18 +28,20 @@ router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
     const imgName = req.file.originalname;
     const newphoto = new Picture({ title, description, imgPath, imgName })
         newphoto.save()
-        .then(photo => {
-            User.findByIdAndUpdate(req.session.currentUser._id, {
+        .then((photo) => {
+            User
+            .findByIdAndUpdate(req.session.currentUser._id, {
                 $push: { image: photo._id }
-            }, {'new': true, 'useFindAndModify': false})
+            },{new: true, useFindAndModify: false})
             .populate("image")
-        })
-        .then(()=>{
-            res.send('pic added');
+            .then(()=>{
+                res.send("pic added");
+            })
         })
         .catch(error => {
             console.log(error);
         })
 });
+
 
 module.exports = router;

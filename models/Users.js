@@ -7,7 +7,7 @@ const userSchema = new Schema({
   passWord: String,
   email: String,
   firstName: String,
-  image:[{
+  image: [{
     type: mongoose.Types.ObjectId,
     ref: "pictures" 
   }]
