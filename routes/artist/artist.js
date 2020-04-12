@@ -14,13 +14,15 @@ router.get('/profile', (req, res, next) => {
     Artist
         .findById(req.session.currentArt._id)
         .populate("image")
+        .populate("tattoos")
         .then((art) => {
             res.json({
                 firstName: art.name,
                 work: art.work,
                 studio: art.studio,
                 email: art.email,
-                image: art.image
+                image: art.image,
+                tattoos: art.tattoos
             })
         })
 });

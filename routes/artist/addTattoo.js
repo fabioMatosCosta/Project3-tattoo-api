@@ -8,17 +8,17 @@ const uploadCloud = require('../../config/cloudinary.js');
 
 
 router.post('/addTattoo', uploadCloud.single('photo'), (req, res, next) => {
-    const { title, description, category } = req.body;
+    const { description, category } = req.body;
+    const artist = req.session.currentArt._id;
     const imgPath = req.file.url;
     const imgName = req.file.originalname;
-    const newTattoo = new TattooPic({ title, description, category, imgPath, imgName })
+    const newTattoo = new TattooPic({ description, category, imgPath, imgName, artist })
     newTattoo.save()
         .then(tattoo => {
             Artist
             .findByIdAndUpdate(req.session.currentArt._id, {
                 $push: { tattoos: tattoo._id }
-            }),{new: true}
-            .populate("tattoos")
+            },{useFindAndModify: false})
             .then(()=>{
                 res.send("tattoo added");
             })
