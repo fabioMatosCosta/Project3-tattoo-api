@@ -12,6 +12,7 @@ const MongoStore = require("connect-mongo")(session);
     User.findOne({
       email
     })
+    .populate("image")
     .then((user)=>{
       if(!user) { 
         res.status(403).json({message: "invalid credentials!"})
@@ -26,7 +27,8 @@ const MongoStore = require("connect-mongo")(session);
             req.session.currentUser = user;
             res.status(200).json({
                 firstName: user.firstName,
-                email: user.email
+                email: user.email,
+                image: user.image
               })
           }
         })
