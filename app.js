@@ -79,6 +79,7 @@ const artists = require('./routes/artist/artist');
 const artSignUp = require('./routes/artist/artSignup');
 const artLogin = require('./routes/artist/artLogin');
 const artList = require('./routes/artistList');
+const artTattoo = require('./routes/artist/addTattoo');
 
 app.use('/', index);
 app.use('/', signup);
@@ -87,7 +88,7 @@ app.use('/artist', artists);
 app.use('/artist', artSignUp);
 app.use('/artist', artLogin);
 app.use('/artist', artList);
-
+app.use('/artist', artTattoo);
 app.use('/', protecc, logout);
 app.use('/user', protecc, profile);
 
