@@ -4,37 +4,28 @@ const Artist = require("../../models/Artists");
 const session = require("express-session");
 const multer = require('multer');
 const Picture = require('../../models/Picture');
+const TattooPic = require('../../models/TattooPics');
 // const upload = multer({ dest: './public/uploads/'});
 const uploadCloud = require('../../config/cloudinary.js');
 
-router.get('/list', (req, res, next) => {
-    Artist
-    .find()
-    .then((art)=>{
-        res.json(
-            art
-        )
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
-})
 
-router.post("/newArtist", (req, res, next) => {
-    const { name, work } = req.body;
-    Artist.create({
-        name: name,
-        work: work
-    })
-    .then((art) => {
-        return res.json({
-            message: `Hey, ${art.name} is added to the database.`
+
+router.get('/profile', (req, res, next) => {
+    Artist
+        .findById(req.session.currentArt._id)
+        .populate("image")
+        .then((art) => {
+            res.json({
+                firstName: art.name,
+                work: art.work,
+                studio: art.studio,
+                email: art.email,
+                image: art.image
+            })
         })
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-})
+});
+
+
 
 router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
     const { title, description } = req.body;
@@ -43,12 +34,40 @@ router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
     const newphoto = new Picture({ title, description, imgPath, imgName })
     newphoto.save()
         .then(photo => {
-            Artist.findById(req.session.currentUser._id)
+            Artist
+            .findByIdAndUpdate(req.session.currentArt._id, {
+                image: photo._id 
+            },{new: true, useFindAndModify: false})
+            .populate("image")
+            .then(()=>{
+                res.send("pic updated");
+            })
         })
-        // res.send('pic added');
         .catch(error => {
             console.log(error);
         })
 });
+
+router.post('/addTattoo', uploadCloud.single('photo'), (req, res, next) => {
+    const { title, description, category } = req.body;
+    const imgPath = req.file.url;
+    const imgName = req.file.originalname;
+    const newTattoo = new TattooPic({ title, description, category, imgPath, imgName })
+    newTattoo.save()
+        .then(tattoo => {
+            Artist
+            .findByIdAndUpdate(req.session.currentArt._id, {
+                $push: { tattoos: tattoo._id }
+            }),{new: true}
+            .populate("tattoos")
+            .then(()=>{
+                res.send("tattoo added");
+            })
+        })
+        .catch(error => {
+            console.log(error);
+        })
+});
+
 
 module.exports = router;

@@ -5,13 +5,18 @@ const Schema = mongoose.Schema;
 
 const artistScehma = new Schema({
   name: String,
-  // image: String,
+  passWord: String,
+  email: String,
   work: String,
   studio: String,
-  image:[{
+  image:{
     type: mongoose.Types.ObjectId,
     ref: "pictures" 
-}]
+  },
+  tattoos:[{
+    type: mongoose.Types.ObjectId,
+    ref: "tattooPic" 
+  }]
 });
 
 

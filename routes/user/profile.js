@@ -35,7 +35,7 @@ router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
             },{new: true, useFindAndModify: false})
             .populate("image")
             .then(()=>{
-                res.send("pic added");
+                res.send("pic updated");
             })
         })
         .catch(error => {
