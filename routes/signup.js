@@ -20,6 +20,7 @@ router.post("/signup", (req, res, next) => {
                 email: email,
                 passWord: hash,
                 firstName: firstName,
+                image: "5e9318eaf0d8ac19e218177d"
             })
         .then((user)=>{
             res.json({
