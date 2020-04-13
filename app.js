@@ -97,6 +97,6 @@ app.use('/artist', artList);
 app.use('/artist', artTattoo);
 app.use('/artist',protectArtist, artists);
 app.use('/user', protecc, profile);
-app.use('/',protecc, tattoos);
+app.use('/tattoos', tattoos);
 
 module.exports = app;
