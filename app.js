@@ -96,11 +96,7 @@ app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
 app.use('/', tattoos);
-app.use('/artist', artSignUp);
-app.use('/artist', artLogin);
-app.use('/artist', artList);
-app.use('/artist', artTattoo);
-app.use('/artist',protectArtist, artists);
+// app.use('/artist',protectArtist, artists);
 app.use('/user', protecc, profile);
 app.use('/tattoos', tattoos);
 
