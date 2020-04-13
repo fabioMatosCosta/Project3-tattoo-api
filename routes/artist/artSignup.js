@@ -9,7 +9,7 @@ router.post("/signup", (req, res, next) => {
     Artist.findOne({ "email": email })
     .then((art) => {
         if (art !== null) {
-            res.json({
+            res.status(403).json({
                 message: "The email already exists!"
             })
         }else {
