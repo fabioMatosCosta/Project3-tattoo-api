@@ -62,12 +62,12 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 function protecc(req,res,next){
   if(req.session.currentUser) next();
-  else res.status(403).json({message: "Not logged in friend"});
+  else res.status(403).json({message: "Not logged in bro"});
 }
 
 function protectArtist(req,res,next){
   if(req.session.currentArt) next();
-  else res.status(403).json({message: "Not logged in buddy"});
+  else res.status(403).json({message: "Not logged in yo"});
 }
 
 // default value for title local
@@ -86,17 +86,17 @@ const artList = require('./routes/artistList');
 const artTattoo = require('./routes/artist/addTattoo');
 const tattoos = require('./routes/tattooPics');
 
+app.use('/artist', artSignUp);
+app.use('/artist', artLogin);
+app.use('/artist', artList);
+app.use('/artist', artTattoo);
+app.use('/artist', artists);
 app.use('/', logout);
 app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
 app.use('/', tattoos);
-app.use('/artist', artSignUp);
-app.use('/artist', artLogin);
-app.use('/artist', artList);
-app.use('/artist', artTattoo);
-app.use('/artist',protectArtist, artists);
-app.use('/user', protecc, profile);
-app.use('/',protecc, tattoos);
+app.use('/user',  profile);
+app.use('/', tattoos);
 
 module.exports = app;
