@@ -5,6 +5,7 @@ const TattooPic = require("../models/TattooPics");
 router.get('/tattoos', (req, res, next) => {
     TattooPic
     .find()
+    .populate("artist")
     .then((tattoo)=>{
         res.json(
             tattoo
