@@ -5,6 +5,8 @@ const Artist = require("../models/Artists");
 router.get('/list', (req, res, next) => {
     Artist
     .find()
+    .populate('image')
+    .populate("tattoos")
     .then((art)=>{
         res.json(
             art
