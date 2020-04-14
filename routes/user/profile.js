@@ -8,6 +8,7 @@ const upload = multer({ dest: './public/uploads/' });
 const uploadCloud = require('../../config/cloudinary');
 
 router.get('/profile', (req, res, next) => {
+    console.log(req.session.currentUser)
     User
         .findById(req.session.currentUser._id)
         .populate("image")
@@ -18,6 +19,9 @@ router.get('/profile', (req, res, next) => {
                 image: user.image
             })
         })
+    .catch((err)=>{
+        console.log("profile error:", err);
+    })
 });
 
 

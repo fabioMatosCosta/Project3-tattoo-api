@@ -35,7 +35,7 @@ const MongoStore = require("connect-mongo")(session);
       }
     })
     .catch((err)=> {
-      res.send("Error, not logged in.")
+      res.send("Error, not logged in.", err)
   })
 });
 
