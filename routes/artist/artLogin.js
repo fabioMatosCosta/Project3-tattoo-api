@@ -12,6 +12,7 @@ router.post("/login",(req, res, next) => {
         email
     })
     .populate("image")
+    .populate("tattoos")
     .then((art)=>{
     if(!art) { 
         res.status(403).json({message: "invalid credentials!"})
@@ -27,7 +28,8 @@ router.post("/login",(req, res, next) => {
             res.status(200).json({
                 name: art.name,
                 email: art.email,
-                image: art.image
+                image: art.image,
+                tattoos:art.tattoos
             })
         }
         })
