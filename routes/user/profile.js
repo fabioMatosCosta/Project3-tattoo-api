@@ -8,7 +8,6 @@ const upload = multer({ dest: './public/uploads/' });
 const uploadCloud = require('../../config/cloudinary');
 
 router.get('/profile', (req, res, next) => {
-    console.log(req.session.currentUser)
     User
         .findById(req.session.currentUser._id)
         .populate("image")
@@ -24,7 +23,6 @@ router.get('/profile', (req, res, next) => {
     })
 });
 
-// sfsaf?
 
 router.post('/addPic', uploadCloud.single('photo'), (req, res, next) => {
     const { title, description } = req.body;

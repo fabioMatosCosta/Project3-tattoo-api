@@ -96,7 +96,6 @@ app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
 app.use('/', tattoos);
-// app.use('/artist',protectArtist, artists);
 app.use('/user', profile);
 app.use('/tattoos', tattoos);
 
