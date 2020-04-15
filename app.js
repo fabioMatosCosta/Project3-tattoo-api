@@ -88,15 +88,15 @@ const tattoos = require('./routes/tattooPics');
 
 app.use('/artist', artSignUp);
 app.use('/artist', artLogin);
-app.use('/artist', artList);
-app.use('/artist', artTattoo);
-app.use('/artist', artists);
+app.use('/artist',protecc, artList);
+app.use('/artist',protectArtist, artTattoo);
+app.use('/artist',protectArtist, artists);
 app.use('/', logout);
 app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
-app.use('/', tattoos);
-app.use('/user', profile);
-app.use('/tattoos', tattoos);
+app.use('/',protecc, tattoos);
+app.use('/user',protecc, profile);
+app.use('/tattoos',protecc, tattoos);
 
 module.exports = app;
