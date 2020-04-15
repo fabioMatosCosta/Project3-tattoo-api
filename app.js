@@ -88,7 +88,7 @@ const tattoos = require('./routes/tattooPics');
 
 app.use('/artist', artSignUp);
 app.use('/artist', artLogin);
-app.use('/artist',protecc, artList);
+app.use('/artist', artList);
 app.use('/artist',protectArtist, artTattoo);
 app.use('/artist',protectArtist, artists);
 app.use('/', logout);
@@ -97,6 +97,6 @@ app.use('/', signup);
 app.use('/', login);
 app.use('/',protecc, tattoos);
 app.use('/user',protecc, profile);
-app.use('/tattoos',protecc, tattoos);
+app.use('/tattoos', tattoos);
 
 module.exports = app;
