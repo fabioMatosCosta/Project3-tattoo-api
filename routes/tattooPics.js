@@ -16,6 +16,7 @@ router.get('/', (req, res, next) => {
     })
 })
 
+
 router.get('/tattoo-detail/:id', (req, res, next)=>{
     TattooPic
     .findById(req.params.id)

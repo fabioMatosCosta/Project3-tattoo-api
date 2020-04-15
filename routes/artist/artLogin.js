@@ -29,7 +29,7 @@ router.post("/login",(req, res, next) => {
                 name: art.name,
                 email: art.email,
                 image: art.image,
-                tattoos:art.tattoos
+                tattoos: art.tattoos
             })
         }
         })
