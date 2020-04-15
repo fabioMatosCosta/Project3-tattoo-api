@@ -25,6 +25,7 @@ router.get('/artist-detail/:id', (req, res, next)=>{
     .then((art)=>{
         res.json({
             name: art.name,
+            email: art.email,
             work: art.work,
             studio: art.studio,
             image: art.image.imgPath,

@@ -14,8 +14,10 @@ router.post("/signup", (req, res, next) => {
             })
         }else {
         bcrypt.hash(passWord, bcryptSalt, function (err, hash) {
-            if (err) next("Hashing error", err)
-            else {
+            if (err) {
+                console.log(err)
+                next("Hashing error", err)
+            }else {
             Artist.create({
                 email: email,
                 passWord: hash,
