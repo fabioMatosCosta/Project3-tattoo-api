@@ -15,7 +15,7 @@ router.get('/profile', (req, res, next) => {
         .populate("tattoos")
         .then((art) => {
             res.json({
-                firstName: art.name,
+                name: art.name,
                 work: art.work,
                 studio: art.studio,
                 email: art.email,
