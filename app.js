@@ -12,6 +12,9 @@ const MongoStore = require("connect-mongo")(session);
 
 const username = process.env.MONGOUSERNAME
 const password = process.env.MONGOPASSWORD
+const originA = process.env.ORIGINA
+const originB = process.env.ORIGINB
+const secretsess = process.env.SESSIONSECRET
 
 mongoose
   .connect(`mongodb+srv://${username}:${password}@tattoounderground-lqqlh.azure.mongodb.net/test`, {useNewUrlParser: true,useUnifiedTopology: true})
@@ -29,7 +32,7 @@ const app = express();
 // Middleware Setup
 
 app.use(cors({
-  origin: ["https://localhost:3000", "http://localhost:3000"],
+  origin: [originA, originB],
   credentials: true
 }));
 
@@ -47,7 +50,7 @@ app.use(require('node-sass-middleware')({
 }));
       
 app.use(session({
-  secret: "basic-auth-secret",
+  secret: secretsess,
   cookie: { maxAge: 1200000 },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
