@@ -85,18 +85,20 @@ const artLogin = require('./routes/artist/artLogin');
 const artList = require('./routes/artistList');
 const artTattoo = require('./routes/artist/addTattoo');
 const tattoos = require('./routes/tattooPics');
+const deleteTattoo = require('./routes/artist/deleteTattoo')
 
 app.use('/artist', artSignUp);
 app.use('/artist', artLogin);
 app.use('/artist', artList);
 app.use('/artist', artTattoo);
 app.use('/artist', artists);
+app.use('/artist', deleteTattoo);
 app.use('/', logout);
 app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
 app.use('/tattoos', tattoos);
-app.use('/',protecc, tattoos);
-app.use('/user',protecc, profile);
+app.use('/', tattoos);
+app.use('/user', profile);
 
 module.exports = app;
