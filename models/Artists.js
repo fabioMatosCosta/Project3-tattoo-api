@@ -4,7 +4,13 @@ const Schema = mongoose.Schema;
 
 const artistScehma = new Schema({
   name: String,
-  passWord: String,
+  passWord: {type:String,
+    validate: {
+      validator: function (v) {
+          return /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(v);
+      },
+      message: props => `${props.value}is not a valid password.8 chars at least one uppercase one lowercase`
+  }},
   email: String,
   work: String,
   studio: String,
@@ -15,7 +21,8 @@ const artistScehma = new Schema({
   tattoos:[{
     type: mongoose.Types.ObjectId,
     ref: "tattooPic" 
-  }]
+  }],
+  
 });
 
 
