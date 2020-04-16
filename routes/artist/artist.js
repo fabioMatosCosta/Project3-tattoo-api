@@ -4,8 +4,6 @@ const Artist = require("../../models/Artists");
 const session = require("express-session");
 const multer = require('multer');
 const Picture = require('../../models/Picture');
-const TattooPic = require('../../models/TattooPics');
-// const upload = multer({ dest: './public/uploads/'});
 const uploadCloud = require('../../config/cloudinary.js');
 
 

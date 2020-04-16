@@ -95,8 +95,8 @@ app.use('/', logout);
 app.use('/', index);
 app.use('/', signup);
 app.use('/', login);
+app.use('/tattoos', tattoos);
 app.use('/',protecc, tattoos);
 app.use('/user',protecc, profile);
-app.use('/tattoos', tattoos);
 
 module.exports = app;
